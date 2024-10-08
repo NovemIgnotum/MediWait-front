@@ -36,22 +36,20 @@ const hospitals = [
 function App() {
   return (
     <div className="App">
-      {/* Header with Logo */}
       <header className="app-header">
         <img src={Logo} alt="MediWait Logo" className="logo" />
-        <h1>MediWait</h1>
+        <h1>M E D I W A I T</h1>
+        <h2 className="subTitle">
+          Suivez le temps d'attente aux urgences en temps réel.
+        </h2>
       </header>
 
-      {/* Main Section with map and medical bag */}
       <section className="main-content">
-        <p>Suivez le temps d'attente aux urgences en temps réel.</p>
-
         <div className="content-wrapper">
-          {/* Left side: Map */}
           <div className="map-container">
             <MapContainer
-              center={[48.8566, 2.3522]}
-              zoom={6}
+              center={[46.603354, 1.888334]}
+              zoom={5}
               scrollWheelZoom={false}
               className="map"
             >
@@ -65,7 +63,9 @@ function App() {
                   position={[hospital.lat, hospital.lng]}
                 >
                   <Popup className="custom-popup">
-                    <div className="popupTimer">{hospital.waitTime} min</div>
+                    <div className="popupTimer">
+                      {hospital.waitTime} min d'attente
+                    </div>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <CiHospital1 size={20} style={{ marginRight: "10px" }} />
                       <span>{hospital.name}</span>
@@ -76,16 +76,12 @@ function App() {
             </MapContainer>
           </div>
 
-          {/* Right side: Medical bag image */}
           <div className="medical-image">
             <img src={MedicalBag} alt="Emergency Medical Bag" />
           </div>
         </div>
-
-        {/* Button to view the map */}
       </section>
 
-      {/* Footer Section */}
       <footer>
         <div className="footer-section">
           <div>
