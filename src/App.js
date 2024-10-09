@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { CiHospital1 } from "react-icons/ci";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "./App.css";
@@ -15,27 +16,98 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-const hospitals = [
-  {
-    id: 1,
-    name: "Hôpital Paris Centre",
-    lat: 48.8566,
-    lng: 2.3522,
-    waitTime: 120,
-  },
-  {
-    id: 2,
-    name: "Hôpital Villeurbanne",
-    lat: 45.764,
-    lng: 4.8357,
-    waitTime: 90,
-  },
-  { id: 3, name: "Hôpital Toulouse", lat: 43.6045, lng: 1.4442, waitTime: 110 },
-];
-
 function App() {
+  const [hospitals, setHospitals] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("fetching data...");
+        fetch("http://localhost/php/get_hospitals_with_wait_time.php")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            setHospitals(data);
+          })
+          .catch((error) => {
+            console.error(
+              "There has been a problem with your fetch operation:",
+              error
+            );
+          });
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const mapModal = () => {
+    return (
+      <div
+        className="modal-overlay"
+        onClick={(e) => {
+          if (e.target.className === "modal-overlay") {
+            setOpenModal(false);
+          }
+        }}
+      >
+        <div className="modal">
+          <div className="map-container-modal">
+            <MapContainer
+              center={[46.603354, 1.888334]}
+              zoom={5}
+              scrollWheelZoom={false}
+              className="map"
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; OpenStreetMap contributors"
+              />
+              {hospitals.map((hospital) => (
+                <Marker
+                  key={hospital.id}
+                  position={[hospital.latitude, hospital.longitude]}
+                >
+                  <Popup className="custom-popup">
+                    <div className="popupTimer">
+                      {Math.ceil(hospital.avg_wait_time)} min d'attente
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <CiHospital1 size={20} style={{ marginRight: "10px" }} />
+                      <span>{hospital.Nom}</span>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          </div>
+          <button className="closingModal" onClick={() => setOpenModal(false)}>
+            <IoIosCloseCircleOutline
+              size={40}
+              style={{
+                color: "white",
+                backgroundColor: "#00c853",
+                borderRadius: "50%",
+                padding: "5px",
+              }}
+            />
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="App">
+      {openModal && mapModal()}
       <header className="app-header">
         <img src={Logo} alt="MediWait Logo" className="logo" />
         <h1>M E D I W A I T</h1>
@@ -60,20 +132,23 @@ function App() {
               {hospitals.map((hospital) => (
                 <Marker
                   key={hospital.id}
-                  position={[hospital.lat, hospital.lng]}
+                  position={[hospital.latitude, hospital.longitude]}
                 >
                   <Popup className="custom-popup">
                     <div className="popupTimer">
-                      {hospital.waitTime} min d'attente
+                      {Math.ceil(hospital.avg_wait_time)} min d'attente
                     </div>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <CiHospital1 size={20} style={{ marginRight: "10px" }} />
-                      <span>{hospital.name}</span>
+                      <span>{hospital.Nom}</span>
                     </div>
                   </Popup>
                 </Marker>
               ))}
             </MapContainer>
+            <button className="view-map-btn" onClick={() => setOpenModal(true)}>
+              Voir la carte
+            </button>
           </div>
 
           <div className="medical-image">

@@ -1,7 +1,13 @@
 <?php
+
+// Ajouter les en-têtes CORS
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 // Database connection settings
 $host = 'localhost'; // Change if needed
-$dbname = 'hopital_db'; // Your database name
+$dbname = 'mediwait'; // Your database name
 $username = 'root'; // MySQL username (default for XAMPP)
 $password = ''; // MySQL password (default for XAMPP)
 
@@ -37,6 +43,11 @@ $sql = "
 
 // Execute the query
 $result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 
 // Initialize an array to hold the result
 $hospitals = array();
