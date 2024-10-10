@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Projet MEDIWAIT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projet créer avec [Create React App](https://github.com/facebook/create-react-app)
 
-## Available Scripts
+Technologie utilisé :
 
-In the project directory, you can run:
+- Javascript
+- PHP
+- MySQL
+- React
+- XAMP
 
-### `npm start`
+### Mise en place du frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Récupération du projet
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Cloner le projet avec cette commande
 
-### `npm test`
+```
+git clone https://github.com/NovemIgnotum/MediWait-front
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ou télécharger le projet via Github Desktop
 
-### `npm run build`
+## Démarrage du projet
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Pour démarrer le projet commencer par faire un `npm i` pour installer toutes les librairies qu'utilise le projet
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Pour démarrer le projet faire un `npm start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Mise en place du backend
 
-### `npm run eject`
+## Accès à l'API
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Pour le développemnt l'accès au backend se fait par un XAMP.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Mise en place du serveur
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Télécharger l'executable XAMP, l'installer et lancer les services APPACHE ET MYSQL.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ensuite trouver le dossier htdocs, créez un dossier php à l'intérieur de celui-ci et glissez le fichier qui se trouve dans le dossier php du projet.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ensuite connecter vous à [phpMyAdmin](http://localhost/phpmyadmin/) et créez une base de données mediwait et exécuter le script sql dans le dossier database du projet.
